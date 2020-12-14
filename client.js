@@ -41,7 +41,6 @@ gteClient.on("message", async (message) => {
     }
     
     if(cmd === `${prefix}help`) {
-    if(authDatabase[message.author.id]) {
         message.channel.send({
             embed: {
                 title: `GTE Cruiser`,
@@ -70,7 +69,6 @@ gteClient.on("message", async (message) => {
                 }
             }
         });     
-    }
 }
 
     
@@ -94,7 +92,7 @@ gteClient.on("message", async (message) => {
     }
 
     if (cmd === `${prefix}add`) {
-      if(authDatabase[message.author.id]) {
+        if(message.author.id == "771007665257709599" || message.author.id == "644210033374134306") {
         let mention = messageArray[1]
         let amount = messageArray[2]
         addFunds(message, amount, mention)
@@ -102,23 +100,18 @@ gteClient.on("message", async (message) => {
 }
 
 
-
 if (cmd === `${prefix}encrypt`) {
-    if(authDatabase[message.author.id]) {
         let encryptPacket = message.content.split(`${prefix}encrypt `).join("");
         toolbox.standardEmbed("RFSA Encryption", `**Encryption Result**:\n\n${"`"}${RFSA.RFSAEncrypt(encryptPacket)}${"`"}`, message)
-    }
 }
 
 if (cmd === `${prefix}decrypt`) {
-    if(authDatabase[message.author.id]) {
         let decryptPacket = message.content.split(`${prefix}decrypt `).join("");
         toolbox.standardEmbed("RFSA Encryption", `**Decryption Result:**\n\n${"`"}${RFSA.RFSADecrypt(decryptPacket)}${"`"}`, message)
-    }
 }
 
 if (cmd === `${prefix}ban`) {
-    if (authDatabase[message.author.id]) {
+    if(message.author.id == "771007665257709599" || message.author.id == "644210033374134306") {
     let target = message.mentions.members.first()
     target.ban("[GTE-CRUISER] Ban")
     toolbox.standardEmbed("Ban", `Banned **${target.user.tag}** successfully.`, message)
@@ -127,16 +120,13 @@ if (cmd === `${prefix}ban`) {
 
 
 if (cmd === `${prefix}kick`) {
-    if (authDatabase[message.author.id]) {
+    if(message.author.id == "771007665257709599" || message.author.id == "644210033374134306") {
     let target = message.mentions.members.first()
     target.kick("[GTE-CRUISER] Kick")
      toolbox.standardEmbed("Kick", `Kicked **${target.user.tag}** successfully.`, message)
     }
 }
 
- 
-
-    
     
 });
 gteClient.login(authorization.token)
