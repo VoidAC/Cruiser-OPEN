@@ -1,6 +1,8 @@
 const fs = require("fs")
 const {standardEmbed} = require("./util-framework.js")
 
+global["currency_name"] = "hexcoin"
+
 function random(min, max) {  
     return Math.floor(Math.random() * (max - min) + min)
 }
@@ -11,9 +13,9 @@ module.exports = {
 createVault(message) {
     if (!fs.existsSync(`./appStorage/vaults/${message.author.id}.vault`)) {
         console.log(`[-] ${message.author.username} created a vault successfully!`.blue)
-        fs.appendFile(`./appStorage/vaults/${message.author.id}.vault`, `15`, (err) => { //aq m jb 
+        fs.appendFile(`./appStorage/vaults/${message.author.id}.vault`, `15`, (err) => { 
             if (err) message.channel.send(`${"`"}An error has occured while trying to create new currency vault${"`"}`)
-            standardEmbed("GTECoin Vault", "Created a new coin vault successfully!", message)
+            standardEmbed(`${currency_name} Vault`, `Created a new ${currency_name} vault successfully!`, message)
             let userid = message.author.id
             let userdata = fs.readFileSync(`./appStorage/vaults/${userid}.vault`,'utf8')
             let datasplit = userdata.split(" ");
@@ -31,8 +33,8 @@ randomPay(message){
     let newbalance = Number(datasplit) + rando
     let c_data = `${newbalance}`
     fs.writeFile(`./appStorage/vaults/${id}.vault`, c_data, (err) => {
-    standardEmbed("Random Cash", `Payed out ${rando} coins to your wallet, you now have ${newbalance} coins.`, message)
-    console.log(`[!] Paid out ${message.author.tag} ${rando} coins. `.blue)
+    standardEmbed("Random Cash", `Payed out ${rando} ${currency_name} to your wallet, you now have ${newbalance} ${currency_name}.`, message)
+    console.log(`[!] Paid out ${message.author.tag} ${rando} ${currency_name}. `.blue)
     });
 },
 
@@ -51,7 +53,7 @@ transferFunds(message, amount, id){
 
 
     fs.writeFile(`./appStorage/vaults/${sendID}.vault`, `${newSend}`, (err) => {
-        standardEmbed("Cash Transfer", `Sent **${amount} coins**  successfully!`, message)
+        standardEmbed("Cash Transfer", `Sent **${amount} ${currency_name}**  successfully!`, message)
         console.log(`[!] ${message.author.tag} transfered ${amount} coins. `.blue)
     });
 
@@ -67,7 +69,7 @@ addFunds(message, amount, id){
     let newRecieve = Number(recieverData) + Number(amount)
 
     fs.writeFile(`./appStorage/vaults/${id}.vault`, `${newRecieve}`, (err) => {});
-    console.log(`[!] ${message.author.tag} added ${amount} coins into the economy.`.blue)
+    console.log(`[!] ${message.author.tag} added ${amount} ${currency_name} into the economy.`.blue)
 } 
 
 },
@@ -76,7 +78,7 @@ checkVault(message) {
     let userdata = fs.readFileSync(`./appStorage/vaults/${message.author.id}.vault`,'utf8')
     let userbalance = userdata
     
-    standardEmbed("GTECoin Vault", `Current balance: **${userbalance}** coins.`, message)
+    standardEmbed(`${currency_name} Vault`, `Current balance: **${userbalance}** ${currency_name}.`, message)
 },
 
 }
