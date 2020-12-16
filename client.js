@@ -8,6 +8,7 @@ const fs = require("fs")
 
 const toolbox = require("./api/util-framework.js")
 const {createVault, checkVault, randomPay, transferFunds, addFunds} = require("./api/coin-framework.js")
+const RFSA = require("./api/RFSA.js")
 
 const authorization = require("./appStorage/auth.json")
 
@@ -36,11 +37,11 @@ gteClient.on("message", async (message) => {
  
   
 
-    if(cmd === `${prefix}ping`) {
+    if(cmd === `${prefix}ping` || cmd === `${prefix}status`) {
         toolbox.complexEmbed("Ping", `Ping speed: **${Math.round(gteClient.ws.ping)} ms**`, `Invite: **https://discord.com/api/oauth2/authorize?client_id=739189845104263278&permissions=268443668&scope=bot**`, message)
     }
     
-    if(cmd === `${prefix}help`) {
+    if(cmd === `${prefix}help` || cmd === `${prefix}cmds`) {
         message.channel.send({
             embed: {
                 title: `GTE Cruiser`,
